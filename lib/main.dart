@@ -49,7 +49,7 @@ class _MyHomePageState extends State<MyHomePage> {
     Translation terjemahan =
         await translator.translate(konten, from: dariBahasa, to: keBahasa);
     setState(() {
-      _bahasaTujuanController.text = terjemahan.toString();
+      _bahasaTujuanController.text = '''${terjemahan.toString()} \n''';
     });
   }
 
@@ -124,33 +124,38 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             Padding(
               padding: const EdgeInsets.all(16.0),
-              child: TextField(
-                maxLines: 15,
-                controller: _bahasaTujuanController,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
+              child: Stack(children: [
+                TextField(
+                  maxLines: 15,
+                  controller: _bahasaTujuanController,
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                  ),
                 ),
-              ),
+                Positioned(
+                  bottom: 0,
+                  right: 0,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 8.0, vertical: 4),
+                    child: Row(
+                      children: [
+                        IconButton(
+                            onPressed: () {
+                              print("kopi data");
+                            },
+                            icon: const Icon(Icons.copy)),
+                        IconButton(
+                            onPressed: () {
+                              print("share data");
+                            },
+                            icon: const Icon(Icons.share)),
+                      ],
+                    ),
+                  ),
+                ),
+              ]),
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 16.0,
-              ),
-              child: Row(
-                children: [
-                  IconButton(
-                      onPressed: () {
-                        print("kopi data");
-                      },
-                      icon: const Icon(Icons.copy)),
-                  IconButton(
-                      onPressed: () {
-                        print("share data");
-                      },
-                      icon: const Icon(Icons.share)),
-                ],
-              ),
-            )
           ],
         ),
       ),
